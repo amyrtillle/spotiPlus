@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spotify Web API Demo</title>
+    <link rel="icon" type="image/x-icon" href="./assets/spotify_logo.png" />
+
+    <link href="./style.css" rel="stylesheet" />
+    <script src="./spotify_api.js"></script>
+  </head>
+
+  <body onload="onPageLoad()">
+    <div class="container">
+      <div id="tokenSection">
+        <div>
+          <div>
+            <p>Not logged yet</p>
+            <hr />
+          </div>
+          <!-- <div>
+            <label for="clientId">Client ID</label>
+            <input
+              type="text"
+              id="clientId"
+              value="bea1129d18834c44958a6741231f1a80"
+            />
+          </div>
+          <div>
+            <label for="clientSecret">Client Secret</label>
+            <input
+              type="text"
+              id="clientSecret"
+              value="9d567158ce3d4484bdf79358c4a6fd62"
+            />
+          </div> -->
+          <input
+            type="button"
+            onclick="requestAuthorization()"
+            value="Connect with spotify"
+          /><br />
+        </div>
+      </div>
+
+      <div id="deviceSection">
+        <div>
+          <div>
+            <label for="devices">Devices</label>
+            <select id="devices"></select>
+            <input
+              type="button"
+              onclick="refreshDevices()"
+              value="Refresh Devices"
+            />
+            <input type="button" onclick="transfer()" value="Transfer" />
+          </div>
+
+          <div>
+            <label for="playlists">Playlists</label>
+            <select id="playlists"></select>
+            <input
+              type="button"
+              onclick="refreshPlaylists()"
+              value="Refresh Playlists"
+            />
+          </div>
+
+          <div>
+            <label for="tracks">Tracks</label>
+            <select id="tracks"></select>
+            <input type="button" onclick="fetchTracks()" value="Fetch Tracks" />
+          </div>
+
+          <div>
+            <label for="tracks">Album</label>
+            <input id="album" />
+          </div>
+
+          <div>
+            <div>
+              <input type="button" onclick="previous()" value="Prev" />
+              <input type="button" onclick="play()" value="Play" />
+              <input type="button" onclick="shuffle()" value="Shuffle" />
+              <input type="button" onclick="pause()" value="Pause" />
+              <input type="button" onclick="next()" value="Next" />
+            </div>
+          </div>
+
+          <div>
+            <div>
+              <h1>Currently Playing</h1>
+              <input
+                type="button"
+                onclick="currentlyPlaying()"
+                value="Refresh Currently Playing"
+              />
+              <div>
+                <img id="albumImage" src="" />
+                <div id="trackTitle"></div>
+                <div id="trackArtist"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
