@@ -13,18 +13,40 @@
 
   <body onload="onPageLoad()">
     <header>
+      <nav role="navigation">
       <a><img class="logo" src="./assets/spotify_logo.png"></a>
+      
+        <div id="menuToggle">
+          <!--
+          A fake / hidden checkbox is used as click reciever,
+          so you can use the :checked selector on it.
+          -->
+          <input type="checkbox" />
+          <span></span>
+          <span></span>
+          <span></span>
+      
+      <ul id="menu">
+        <a href="#"><li>Account</li></a>
+        <a href="#"><li>Install Spotify</li></a>
+        <a href="#"><li>About</li></a>
+        <a href="#"><li>Log out</li></a>
+
+      </ul>
+      </div>
+      </nav>
     </header>
     <main>
     <div class="container">
       <div id="tokenSection">
         <div>
-          <div>
+          <div class="logContent">
             <p>Not logged yet</p>
             <hr />
           </div>
           <input
             type="button"
+            id="connectButton"
             onclick="requestAuthorization()"
             value="Connect with spotify"
           /><br />
@@ -94,6 +116,8 @@
       </div>
     </div>
   </main>
-  <footer></footer>
+  <footer id="footer">
+
+  </footer>
   </body>
 </html>
