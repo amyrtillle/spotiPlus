@@ -31,10 +31,12 @@ function onPageLoad() {
     access_token = localStorage.getItem("access_token");
     if (access_token == null) {
       // we don't have an access token so present token section
-      document.getElementById("tokenSection").style.display = "block";
+      document.getElementById("tokenSection").style.display = "flex";
+      document.getElementById("footer").style.display = "none";
     } else {
       // we have an access token so present device section
-      document.getElementById("deviceSection").style.display = "block";
+      document.getElementById("deviceSection").style.display = "flex";
+      document.getElementById("footer").style.display = "flex";
       refreshDevices();
       refreshPlaylists();
       currentlyPlaying();
@@ -72,7 +74,7 @@ function requestAuthorization() {
   url += "&show_dialog=true";
   url +=
     "&scope=user-read-private user-read-email user-modify-playback-state user-read-playback-position user-library-read streaming user-read-playback-state user-read-recently-played playlist-read-private";
-  window.location.href = url; // Show Spotify's authorization screen
+  window.location.href = url;
 }
 
 function fetchAccessToken(code) {
