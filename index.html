@@ -5,12 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Spotify Web API Demo</title>
     <link rel="icon" type="image/x-icon" href="./assets/spotify_logo.png" />
-
-    <link href="./style.css" rel="stylesheet" />
+    
+    <link href="./css/reset.css" rel="stylesheet" />
+    <link href="./css/style.css" rel="stylesheet" />
     <script src="./spotify_api.js"></script>
   </head>
 
   <body onload="onPageLoad()">
+    <header>
+      <a><img class="logo" src="./assets/spotify_logo.png"></a>
+    </header>
+    <main>
     <div class="container">
       <div id="tokenSection">
         <div>
@@ -18,22 +23,6 @@
             <p>Not logged yet</p>
             <hr />
           </div>
-          <!-- <div>
-            <label for="clientId">Client ID</label>
-            <input
-              type="text"
-              id="clientId"
-              value="bea1129d18834c44958a6741231f1a80"
-            />
-          </div>
-          <div>
-            <label for="clientSecret">Client Secret</label>
-            <input
-              type="text"
-              id="clientSecret"
-              value="9d567158ce3d4484bdf79358c4a6fd62"
-            />
-          </div> -->
           <input
             type="button"
             onclick="requestAuthorization()"
@@ -104,5 +93,7 @@
         </div>
       </div>
     </div>
+  </main>
+  <footer></footer>
   </body>
 </html>
