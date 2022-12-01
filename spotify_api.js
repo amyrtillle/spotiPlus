@@ -42,7 +42,6 @@ function onPageLoad() {
       currentlyPlaying();
     }
   }
-  refreshRadioButtons();
 }
 
 function handleRedirect() {
@@ -300,7 +299,13 @@ function currentlyPlaying() {
 }
 
 setInterval(function () {
-  currentlyPlaying();
+  if (access_token != null) {
+    currentlyPlaying();
+    console.log("refresh");
+  } else {
+    console.log("no refresh");
+    return;
+  }
 }, 15000);
 
 function handleCurrentlyPlayingResponse() {
@@ -343,7 +348,6 @@ function saveNewRadioButton() {
   item.playlistId = document.getElementById("playlists").value;
   radioButtons.push(item);
   localStorage.setItem("radio_button", JSON.stringify(radioButtons));
-  refreshRadioButtons();
 }
 
 function onRadioButton(deviceId, playlistId) {
