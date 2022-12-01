@@ -33,10 +33,12 @@ function onPageLoad() {
       // we don't have an access token so present token section
       document.getElementById("tokenSection").style.display = "flex";
       document.getElementById("footer").style.display = "none";
+      document.getElementById("menuToggle").style.display = "none";
     } else {
       // we have an access token so present device section
       document.getElementById("deviceSection").style.display = "flex";
       document.getElementById("footer").style.display = "flex";
+      document.getElementById("menuToggle").style.display = "flex";
       refreshDevices();
       refreshPlaylists();
       currentlyPlaying();
@@ -213,6 +215,44 @@ function play() {
   );
 }
 
+window.onSpotifyWebPlaybackSDKReady = () => {
+  const player = new Spotify.Player({
+    name: "SpotiPlus Player",
+    getOAuthToken: (cb) => {
+      cb(access_token);
+    },
+    volume: 0.5,
+  });
+
+  // Ready
+  player.addListener("ready", ({ device_id }) => {
+    console.log("Ready with Device ID", device_id);
+  });
+
+  // Not Ready
+  player.addListener("not_ready", ({ device_id }) => {
+    console.log("Device ID has gone offline", device_id);
+  });
+
+  player.addListener("initialization_error", ({ message }) => {
+    console.error(message);
+  });
+
+  player.addListener("authentication_error", ({ message }) => {
+    console.error(message);
+  });
+
+  player.addListener("account_error", ({ message }) => {
+    console.error(message);
+  });
+
+  document.getElementById("togglePlay").onclick = function () {
+    player.togglePlay();
+  };
+
+  player.connect();
+};
+
 function shuffle() {
   callApi(
     "PUT",
@@ -342,14 +382,6 @@ function handleCurrentlyPlayingResponse() {
   }
 }
 
-function saveNewRadioButton() {
-  let item = {};
-  item.deviceId = deviceId();
-  item.playlistId = document.getElementById("playlists").value;
-  radioButtons.push(item);
-  localStorage.setItem("radio_button", JSON.stringify(radioButtons));
-}
-
 function onRadioButton(deviceId, playlistId) {
   let body = {};
   body.context_uri = "spotify:playlist:" + playlistId;
@@ -362,14 +394,4 @@ function onRadioButton(deviceId, playlistId) {
     JSON.stringify(body),
     handleApiResponse
   );
-}
-
-function addRadioButton(item, index) {
-  let node = document.createElement("button");
-  node.className = "btn btn-primary m-2";
-  node.innerText = index;
-  node.onclick = function () {
-    onRadioButton(item.deviceId, item.playlistId);
-  };
-  document.getElementById("radioButtons").appendChild(node);
 }

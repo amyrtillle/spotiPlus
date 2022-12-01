@@ -5,119 +5,126 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Spotify Web API Demo</title>
     <link rel="icon" type="image/x-icon" href="./assets/spotify_logo.png" />
-    
+
     <link href="./css/reset.css" rel="stylesheet" />
     <link href="./css/style.css" rel="stylesheet" />
-    <script src="./spotify_api.js"></script>
+    <script src="./js/spotify_api.js"></script>
+    <script src="./js/spotify-player.js"></script>
   </head>
 
   <body onload="onPageLoad()">
     <header>
       <nav role="navigation">
-      <a><img class="logo" src="./assets/spotify_logo.png"></a>
-      
+        <a><img class="logo" src="./assets/spotify_logo.png" /></a>
+
         <div id="menuToggle">
-          <!--
-          A fake / hidden checkbox is used as click reciever,
-          so you can use the :checked selector on it.
-          -->
           <input type="checkbox" />
           <span></span>
           <span></span>
           <span></span>
-      
-      <ul id="menu">
-        <a href="#"><li>Account</li></a>
-        <a href="#"><li>Install Spotify</li></a>
-        <a href="#"><li>About</li></a>
-        <a href="#"><li>Log out</li></a>
 
-      </ul>
-      </div>
+          <ul id="menu">
+            <a href="#"><li>Account</li></a>
+            <a href="#"><li>Install Spotify</li></a>
+            <a href="#"><li>About</li></a>
+            <a href="#"><li>Log out</li></a>
+          </ul>
+        </div>
       </nav>
     </header>
     <main>
-    <div class="container">
-      <div id="tokenSection">
-        <div>
-          <div class="logContent">
-            <p>Not logged yet</p>
-            <hr />
-          </div>
-          <input
-            type="button"
-            id="connectButton"
-            onclick="requestAuthorization()"
-            value="Connect with spotify"
-          /><br />
-        </div>
-      </div>
-
-      <div id="deviceSection">
-        <div>
+      <div class="container">
+        <div id="tokenSection">
           <div>
-            <label for="devices">Devices</label>
-            <select id="devices"></select>
-            <input
-              type="button"
-              onclick="refreshDevices()"
-              value="Refresh Devices"
-            />
-            <input type="button" onclick="transfer()" value="Transfer" />
-          </div>
-
-          <div>
-            <label for="playlists">Playlists</label>
-            <select id="playlists"></select>
-            <input
-              type="button"
-              onclick="refreshPlaylists()"
-              value="Refresh Playlists"
-            />
-          </div>
-
-          <div>
-            <label for="tracks">Tracks</label>
-            <select id="tracks"></select>
-            <input type="button" onclick="fetchTracks()" value="Fetch Tracks" />
-          </div>
-
-          <div>
-            <label for="tracks">Album</label>
-            <input id="album" />
-          </div>
-
-          <div>
-            <div>
-              <input type="button" onclick="previous()" value="Prev" />
-              <input type="button" onclick="play()" value="Play" />
-              <input type="button" onclick="shuffle()" value="Shuffle" />
-              <input type="button" onclick="pause()" value="Pause" />
-              <input type="button" onclick="next()" value="Next" />
+            <div class="logContent">
+              <p>Not logged yet</p>
+              <hr />
             </div>
+            <input
+              type="button"
+              id="connectButton"
+              onclick="requestAuthorization()"
+              value="Connect with spotify"
+            /><br />
           </div>
+        </div>
 
+        <div id="deviceSection">
           <div>
             <div>
-              <h1>Currently Playing</h1>
+              <label for="devices">Devices</label>
+              <select id="devices"></select>
               <input
                 type="button"
-                onclick="currentlyPlaying()"
-                value="Refresh Currently Playing"
+                onclick="refreshDevices()"
+                value="Refresh Devices"
               />
+              <input type="button" onclick="transfer()" value="Transfer" />
+              <input
+                type="button"
+                id="togglePlay"
+                value="Toggle play to this browser"
+              />
+            </div>
+
+            <div>
+              <label for="playlists">Playlists</label>
+              <select id="playlists"></select>
+              <input
+                type="button"
+                onclick="refreshPlaylists()"
+                value="Refresh Playlists"
+              />
+            </div>
+
+            <div>
+              <label for="tracks">Tracks</label>
+              <select id="tracks"></select>
+              <input
+                type="button"
+                onclick="fetchTracks()"
+                value="Fetch Tracks"
+              />
+            </div>
+
+            <div>
+              <label for="tracks">Album</label>
+              <input id="album" />
+            </div>
+
+            <div>
               <div>
-                <img id="albumImage" src="" />
-                <div id="trackTitle"></div>
-                <div id="trackArtist"></div>
+                <input type="button" onclick="previous()" value="Prev" />
+                <input type="button" onclick="play()" value="Play" />
+                <input type="button" onclick="shuffle()" value="Shuffle" />
+                <input type="button" onclick="pause()" value="Pause" />
+                <input type="button" onclick="next()" value="Next" />
+              </div>
+            </div>
+
+            <div>
+              <div>
+                <h1>Currently Playing</h1>
+                <input
+                  type="button"
+                  onclick="currentlyPlaying()"
+                  value="Refresh Currently Playing"
+                />
+                <div>
+                  <img
+                    id="albumImage"
+                    src=""
+                    style="aspect-ratio: 1/1; height: 100px"
+                  />
+                  <div id="trackTitle"></div>
+                  <div id="trackArtist"></div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </main>
-  <footer id="footer">
-
-  </footer>
+    </main>
+    <footer id="footer"></footer>
   </body>
 </html>
