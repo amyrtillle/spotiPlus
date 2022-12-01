@@ -95,6 +95,12 @@ function refreshAccessToken() {
   callAuthorizationApi(body);
 }
 
+function logOut() {
+  access_token = localStorage.removeItem("access_token");
+  refresh_token = localStorage.removeItem("refresh_token");
+  window.location.reload();
+}
+
 function callAuthorizationApi(body) {
   let xhr = new XMLHttpRequest();
   xhr.open("POST", TOKEN, true);

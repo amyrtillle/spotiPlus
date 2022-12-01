@@ -8,6 +8,8 @@
 
     <link href="./css/reset.css" rel="stylesheet" />
     <link href="./css/style.css" rel="stylesheet" />
+
+    <script src="./js/script.js"></script>
     <script src="./js/spotify_api.js"></script>
     <script src="./js/spotify-player.js"></script>
   </head>
@@ -18,18 +20,22 @@
         <a><img class="logo" src="./assets/spotify_logo.png" /></a>
 
         <div id="menuToggle">
-          <input type="checkbox" />
+          <input type="checkbox" id="checkBox" onclick="toggleMenu()" />
           <span></span>
           <span></span>
           <span></span>
-
-          <ul id="menu">
-            <a href="#"><li>Account</li></a>
-            <a href="#"><li>Install Spotify</li></a>
-            <a href="#"><li>About</li></a>
-            <a href="#"><li>Log out</li></a>
-          </ul>
         </div>
+        <ul id="menu">
+          <li>Menu</li>
+          <a href="https://www.spotify.com/fr/account/overview/"
+            ><li>Account</li></a
+          >
+          <a href="https://www.spotify.com/fr/download/"
+            ><li>Install Spotify</li></a
+          >
+          <a href="#"><li>About</li></a>
+          <a href="#" onclick="logOut()"><li>Log out</li></a>
+        </ul>
       </nav>
     </header>
     <main>
