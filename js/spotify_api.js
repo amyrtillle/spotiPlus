@@ -116,7 +116,6 @@ function callAuthorizationApi(body) {
 function handleAuthorizationResponse() {
   if (this.status == 200) {
     var data = JSON.parse(this.responseText);
-    console.log(data);
     var data = JSON.parse(this.responseText);
     if (data.access_token != undefined) {
       access_token = data.access_token;
@@ -128,7 +127,6 @@ function handleAuthorizationResponse() {
     }
     onPageLoad();
   } else {
-    console.log(this.responseText);
     alert(this.responseText);
   }
 }
@@ -140,13 +138,11 @@ function refreshDevices() {
 function handleDevicesResponse() {
   if (this.status == 200) {
     var data = JSON.parse(this.responseText);
-    console.log(data);
     removeAllItems("devices");
     data.devices.forEach((item) => addDevice(item));
   } else if (this.status == 401) {
     refreshAccessToken();
   } else {
-    console.log(this.responseText);
     alert(this.responseText);
   }
 }
@@ -174,14 +170,12 @@ function refreshPlaylists() {
 function handlePlaylistsResponse() {
   if (this.status == 200) {
     var data = JSON.parse(this.responseText);
-    console.log(data);
     removeAllItems("playlists");
     data.items.forEach((item) => addPlaylist(item));
     document.getElementById("playlists").value = currentPlaylist;
   } else if (this.status == 401) {
     refreshAccessToken();
   } else {
-    console.log(this.responseText);
     alert(this.responseText);
   }
 }
@@ -203,16 +197,14 @@ function removeAllItems(elementId) {
 function play() {
   let playlist_id = document.getElementById("playlists").value;
   let trackindex = document.getElementById("tracks").value;
-  let album = document.getElementById("album").value;
   let body = {};
-  if (album.length > 0) {
-    body.context_uri = album;
-  } else {
-    body.context_uri = "spotify:playlist:" + playlist_id;
-  }
-  body.offset = {};
-  body.offset.position = trackindex.length > 0 ? Number(trackindex) : 0;
-  body.offset.position_ms = 0;
+
+  // body.context_uri = "spotify:track:" + currentTrackId;
+  // console.log(body.context_uri);
+  // body.offset = {};
+  // body.offset.position =
+  //   trackindex.length > 0 ? Number(trackindex) : Number(trackindex);
+  // body.offset.position_ms = 0;
   callApi(
     "PUT",
     PLAY + "?device_id=" + deviceId(),
@@ -295,15 +287,11 @@ function transfer() {
 
 function handleApiResponse() {
   if (this.status == 200) {
-    console.log(this.responseText);
     setTimeout(currentlyPlaying, 2000);
   } else if (this.status == 204) {
     setTimeout(currentlyPlaying, 2000);
   } else if (this.status == 401) {
     refreshAccessToken();
-  } else {
-    console.log(this.responseText);
-    alert(this.responseText);
   }
 }
 
@@ -322,14 +310,10 @@ function fetchTracks() {
 function handleTracksResponse() {
   if (this.status == 200) {
     var data = JSON.parse(this.responseText);
-    console.log(data);
     removeAllItems("tracks");
     data.items.forEach((item, index) => addTrack(item, index));
   } else if (this.status == 401) {
     refreshAccessToken();
-  } else {
-    console.log(this.responseText);
-    alert(this.responseText);
   }
 }
 
@@ -344,22 +328,63 @@ function currentlyPlaying() {
   callApi("GET", PLAYER + "?market=FR", null, handleCurrentlyPlayingResponse);
 }
 
+function timeStamp() {
+  callApi("GET", PLAYER + "?market=FR", null, handleTimeStampResponse);
+}
+
 setInterval(function () {
-  if (access_token != null) {
-    currentlyPlaying();
-    console.log("refresh");
+  if (access_token != null && access_token.length > 0) {
+    timeStamp();
   } else {
-    console.log("no refresh");
-    return;
+    setTimeout(() => {}, "15000");
   }
-}, 15000);
+}, 1000);
+
+setInterval(function () {
+  if (access_token != null && access_token.length > 0) {
+    currentlyPlaying();
+  } else {
+    setTimeout(() => {}, "15000");
+  }
+}, 10000);
+
+function handleTimeStampResponse() {
+  if (this.status == 200) {
+    var data = JSON.parse(this.responseText);
+    if (data.item != null) {
+      let trackMsTot = data.item.duration_ms;
+      let trackMs = trackMsTot % 1000;
+      let trackStot = (trackMsTot - trackMs) / 1000;
+      let trackS = trackStot % 60;
+      let trackMtot = (trackStot - trackS) / 60;
+      let trackM = trackMtot % 60;
+
+      let progressMsTot = data.progress_ms;
+      let progressMs = progressMsTot % 1000;
+      let progressStot = (progressMsTot - progressMs) / 1000;
+      let progressS = progressStot % 60;
+      let progressMtot = (progressStot - progressS) / 60;
+      let progressM = progressMtot % 60;
+
+      document.getElementById("trackDuration").innerHTML =
+        trackM + ":" + trackS;
+      document.getElementById("trackProgress").innerHTML =
+        progressM + ":" + progressS;
+    }
+  } else {
+    document.getElementById("trackDuration").innerHTML = "0:0";
+    document.getElementById("trackProgress").innerHTML = "0:0";
+    document.getElementById("albumImage").style.display = "none";
+    document.getElementById("trackTitle").innerHTML = "No track playing";
+  }
+}
 
 function handleCurrentlyPlayingResponse() {
   if (this.status == 200) {
     var data = JSON.parse(this.responseText);
-    console.log(data);
     if (data.item != null) {
       document.getElementById("albumImage").src = data.item.album.images[0].url;
+      document.getElementById("albumImage").style.display = "block";
       document.getElementById("trackTitle").innerHTML = data.item.name;
       document.getElementById("trackArtist").innerHTML =
         data.item.artists[0].name;
@@ -372,7 +397,6 @@ function handleCurrentlyPlayingResponse() {
     }
 
     if (data.context != null) {
-      // select playlist
       currentPlaylist = data.context.uri;
       currentPlaylist = currentPlaylist.substring(
         currentPlaylist.lastIndexOf(":") + 1,
@@ -383,8 +407,10 @@ function handleCurrentlyPlayingResponse() {
   } else if (this.status == 401) {
     refreshAccessToken();
   } else {
-    console.log(this.responseText);
-    alert(this.responseText);
+    document.getElementById("trackDuration").innerHTML = "0:0";
+    document.getElementById("trackProgress").innerHTML = "0:0";
+    document.getElementById("albumImage").style.display = "none";
+    document.getElementById("trackTitle").innerHTML = "No track playing";
   }
 }
 
