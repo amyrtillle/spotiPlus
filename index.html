@@ -97,24 +97,32 @@
       </div>
     </main>
     <footer>
-      <p>></p>
-      <p>Now Playing</p>
+      <div id="footerContainer">
+        <div>
+          <p id="extendPlayer">></p>
+          <input type="checkbox" id="footerCheckBox" onclick="togglePlayer()" />
+          <p>Now Playing</p>
+        </div>
 
-      <div class="musicInfo">
         <img id="albumImage" src="" />
-        <p id="trackTitle"></p>
-        <p id="trackArtist"></p>
-      </div>
-      <div>
-        <input type="button" onclick="previous()" value="Prev" />
-        <input type="button" onclick="play()" value="Play" />
-        <input type="button" onclick="shuffle()" value="Shuffle" />
-        <input type="button" onclick="pause()" value="Pause" />
-        <input type="button" onclick="next()" value="Next" />
-      </div>
-      <div>
-        <p id="trackProgress"></p>
-        <p id="trackDuration"></p>
+        <div id="musicInfo">
+          <p id="trackTitle" class="trackInfo"></p>
+          <p id="trackArtist" class="trackInfo"></p>
+        </div>
+        <div id="controlContainer">
+          <img src="./assets/previous.png" onclick="previous()" value="Prev" />
+          <img
+            src="./assets/play-button-arrowhead.png"
+            onclick="play()"
+            value="Play"
+          />
+          <img src="./assets/pause.png" onclick="pause()" value="Pause" />
+          <img src="./assets/next.png" onclick="next()" value="Next" />
+        </div>
+        <div id="trackTime">
+          <p id="trackProgress"></p>
+          <p id="trackDuration"></p>
+        </div>
       </div>
     </footer>
   </body>

@@ -20,7 +20,6 @@ const PLAYER = "https://api.spotify.com/v1/me/player";
 const TRACKS = "https://api.spotify.com/v1/playlists/{{PlaylistId}}/tracks";
 const CURRENTLYPLAYING =
   "https://api.spotify.com/v1/me/player/currently-playing";
-const SHUFFLE = "https://api.spotify.com/v1/me/player/shuffle";
 
 function onPageLoad() {
   client_id = localStorage.getItem("client_id");
@@ -32,12 +31,12 @@ function onPageLoad() {
     if (access_token == null) {
       // we don't have an access token so present token section
       document.getElementById("tokenSection").style.display = "flex";
-      document.getElementById("footer").style.display = "none";
+      document.querySelector("footer").style.display = "none";
       document.getElementById("menuToggle").style.display = "none";
     } else {
       // we have an access token so present device section
       document.getElementById("deviceSection").style.display = "flex";
-      document.getElementById("footer").style.display = "flex";
+      document.querySelector("footer").style.display = "flex";
       document.getElementById("menuToggle").style.display = "flex";
       refreshDevices();
       refreshPlaylists();
@@ -198,13 +197,7 @@ function play() {
   let playlist_id = document.getElementById("playlists").value;
   let trackindex = document.getElementById("tracks").value;
   let body = {};
-
-  // body.context_uri = "spotify:track:" + currentTrackId;
-  // console.log(body.context_uri);
-  // body.offset = {};
-  // body.offset.position =
-  //   trackindex.length > 0 ? Number(trackindex) : Number(trackindex);
-  // body.offset.position_ms = 0;
+  refreshDevices();
   callApi(
     "PUT",
     PLAY + "?device_id=" + deviceId(),
@@ -251,25 +244,18 @@ window.onSpotifyWebPlaybackSDKReady = () => {
   player.connect();
 };
 
-function shuffle() {
-  callApi(
-    "PUT",
-    SHUFFLE + "?state=true&device_id=" + deviceId(),
-    null,
-    handleApiResponse
-  );
-  play();
-}
-
 function pause() {
+  refreshDevices();
   callApi("PUT", PAUSE + "?device_id=" + deviceId(), null, handleApiResponse);
 }
 
 function next() {
+  refreshDevices();
   callApi("POST", NEXT + "?device_id=" + deviceId(), null, handleApiResponse);
 }
 
 function previous() {
+  refreshDevices();
   callApi(
     "POST",
     PREVIOUS + "?device_id=" + deviceId(),
@@ -384,7 +370,7 @@ function handleCurrentlyPlayingResponse() {
     var data = JSON.parse(this.responseText);
     if (data.item != null) {
       document.getElementById("albumImage").src = data.item.album.images[0].url;
-      document.getElementById("albumImage").style.display = "block";
+
       document.getElementById("trackTitle").innerHTML = data.item.name;
       document.getElementById("trackArtist").innerHTML =
         data.item.artists[0].name;

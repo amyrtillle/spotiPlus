@@ -64,7 +64,6 @@ nav > a{
     transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0)
 }
 
-
 #menuToggle
 {
   display: flex;
@@ -91,15 +90,13 @@ nav > a{
 
 #menuToggle input
 {
+  cursor: pointer;
   display: block;
   width: 40px;
   height: 32px;
   position: absolute;
   top: -7px;
   left: -5px;
-  
-  cursor: pointer;
-  
   opacity: 0; /* hide this */
   z-index: 2; /* and place it over the hamburger */
 }
@@ -219,14 +216,125 @@ font-size: large;
     font-size: 1.2rem;
     text-align: center;
     border-radius: 100px;
-height: 40px;
+    height: 40px;
     background-color: #1DB954;
-    
     border: 0;
 
 }
 
-
 #deviceSection{
     display: none;
+    flex-direction: column;
+}
+
+footer{
+  transition: all 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  bottom: 0;
+  width: 100%;
+  background-color: #9787B8;
+  border-radius:15px 15px 0 0;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  display: flex;
+}
+
+#footerContainer{
+  
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  height: 150px;
+}
+
+#extendPlayer{
+    transform: rotate(-90deg);
+    font-weight: 900;
+    font-size: 1.7rem;
+    margin: auto;
+  transition: all 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+
+}
+
+#footerContainer > p:nth-of-type(2){
+  text-align: center;
+}
+
+#albumImage{
+  display: block;
+  aspect-ratio: 1/1; 
+  height: 0;
+  width: 150px;
+transition: all 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+
+
+}
+
+#trackTime{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  transition: all 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+
+}
+
+#musicInfo{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+}
+
+#trackTitle{
+  display: flex;
+  text-align: left;
+  white-space: normal;
+  justify-content: flex-start;
+}
+
+#trackArtist{
+  text-align: right;
+  white-space: normal;
+  display: flex;
+  justify-content: flex-end;
+}
+.trackInfo{
+  margin: 10px 0;
+  width: 50%;
+  height: 100%;
+}
+
+#controlContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  margin: 10px 0;
+}
+
+#controlContainer > img{
+  aspect-ratio: 1/1;
+  height: 25px;
+}
+
+#footerCheckBox
+{
+  cursor: pointer;
+  display: block;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  opacity: 0;
+  z-index: 2;
+}
+
+#footerContainer > div:first-of-type{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
