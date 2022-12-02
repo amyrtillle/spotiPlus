@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Spotify Web API Demo</title>
+    <title>SpotiPlus</title>
     <link rel="icon" type="image/x-icon" href="./assets/spotify_logo.png" />
 
     <link href="./css/reset.css" rel="stylesheet" />
@@ -39,99 +39,82 @@
       </nav>
     </header>
     <main>
-      <div class="container">
-        <div id="tokenSection">
-          <div>
-            <div class="logContent">
-              <p>Not logged yet</p>
-              <hr />
-            </div>
-            <input
-              type="button"
-              id="connectButton"
-              onclick="requestAuthorization()"
-              value="Connect with spotify"
-            /><br />
+      <div id="tokenSection">
+        <div>
+          <div class="logContent">
+            <p>Not logged yet</p>
+            <hr />
           </div>
+          <input
+            type="button"
+            id="connectButton"
+            onclick="requestAuthorization()"
+            value="Connect with spotify"
+          /><br />
+        </div>
+      </div>
+
+      <div id="deviceSection">
+        <div>
+          <label for="devices">Devices</label>
+          <select id="devices"></select>
+          <input
+            type="button"
+            onclick="refreshDevices()"
+            value="Refresh Devices"
+          />
+          <input type="button" onclick="transfer()" value="Transfer" />
+          <input
+            type="button"
+            id="togglePlay"
+            value="Toggle play to this browser"
+          />
         </div>
 
-        <div id="deviceSection">
-          <div>
-            <div>
-              <label for="devices">Devices</label>
-              <select id="devices"></select>
-              <input
-                type="button"
-                onclick="refreshDevices()"
-                value="Refresh Devices"
-              />
-              <input type="button" onclick="transfer()" value="Transfer" />
-              <input
-                type="button"
-                id="togglePlay"
-                value="Toggle play to this browser"
-              />
-            </div>
+        <div>
+          <label for="playlists">Playlists</label>
+          <select id="playlists"></select>
+          <input
+            type="button"
+            onclick="refreshPlaylists()"
+            value="Refresh Playlists"
+          />
+        </div>
 
-            <div>
-              <label for="playlists">Playlists</label>
-              <select id="playlists"></select>
-              <input
-                type="button"
-                onclick="refreshPlaylists()"
-                value="Refresh Playlists"
-              />
-            </div>
-
-            <div>
-              <label for="tracks">Tracks</label>
-              <select id="tracks"></select>
-              <input
-                type="button"
-                onclick="fetchTracks()"
-                value="Fetch Tracks"
-              />
-            </div>
-            <div>
-              <div>
-                <h1>Currently Playing</h1>
-                <input
-                  type="button"
-                  onclick="currentlyPlaying()"
-                  value="Refresh Currently Playing"
-                />
-                <div>
-                  <img
-                    id="albumImage"
-                    src=""
-                    style="aspect-ratio: 1/1; height: 100px"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
+        <div>
+          <label for="tracks">Tracks</label>
+          <select id="tracks"></select>
+          <input type="button" onclick="fetchTracks()" value="Fetch Tracks" />
+        </div>
+        <div>
+          <h1>Currently Playing</h1>
+          <input
+            type="button"
+            onclick="currentlyPlaying()"
+            value="Refresh Currently Playing"
+          />
         </div>
       </div>
     </main>
-    <footer id="footer">
+    <footer>
+      <p>></p>
+      <p>Now Playing</p>
+
+      <div class="musicInfo">
+        <img id="albumImage" src="" />
+        <p id="trackTitle"></p>
+        <p id="trackArtist"></p>
+      </div>
       <div>
-        <p>></p>
-        <p>Now Playing</p>
-        <div class="musicInfo">
-          <p id="trackTitle"></p>
-          <p id="trackArtist"></p>
-        </div>
-        <div>
-          <input type="button" onclick="previous()" value="Prev" />
-          <input type="button" onclick="play()" value="Play" />
-          <input type="button" onclick="shuffle()" value="Shuffle" />
-          <input type="button" onclick="pause()" value="Pause" />
-          <input type="button" onclick="next()" value="Next" />
-        </div>
-        <div>
-          <p id="trackProgress"></p>
-          <p id="trackDuration"></p>
-        </div>
+        <input type="button" onclick="previous()" value="Prev" />
+        <input type="button" onclick="play()" value="Play" />
+        <input type="button" onclick="shuffle()" value="Shuffle" />
+        <input type="button" onclick="pause()" value="Pause" />
+        <input type="button" onclick="next()" value="Next" />
+      </div>
+      <div>
+        <p id="trackProgress"></p>
+        <p id="trackDuration"></p>
       </div>
     </footer>
   </body>
