@@ -1,0 +1,121 @@
+main{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin: 100px 0;
+    transition: all 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+    z-index: 0;
+}
+
+#tokenSection{
+    align-items: center;
+    background-color: #9787B8;
+    border-radius: 25px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    display: none;
+    height: 150px;
+    justify-content: center;
+    width: 290px;
+    z-index: 0;
+}
+
+.logContent > p{
+    font-size: large;
+    text-align: center;
+}
+
+.logContent > hr{
+    border: 1px solid;
+    border-color: #E55982;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+#connectButton{
+    background-color: #1DB954;
+    border: 0;
+    border-radius: 100px;
+    font-family: Circular, sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    height: 40px;
+    padding: 0 20px;
+    text-align: center;
+}
+
+#selectionSection{
+    text-align: center;
+}
+
+.selectionButton, .list {
+  background-color: #9787B8;
+  border-radius: 8px;
+  border-style: none;
+  box-sizing: border-box;
+  cursor: pointer;
+  margin: 5px 0;
+  padding: 5px 10px;
+  transition: color 100ms;
+}
+
+.selectionButton:hover,
+.selectionButton:focus, 
+.list:hover,
+.list:focus{
+  background-color: #8374A1;
+}
+
+#deviceSection{
+    display: none;
+    flex-direction: column;
+    margin: 0px 10px;
+}
+
+.musicListItem{
+    background-color: #9787B8;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 10px 10px;
+    padding: 5px;
+}
+
+#playlistSelection{
+    margin: 10px 0;
+}
+
+#playlists{
+    scrollbar-width: thin;
+}
+
+.trackListInfo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 0;
+    width: 90%;
+}
+
+.trackListInfo > p:nth-child(2){
+    margin-left: 10px;
+}
+
+.trackListDuration{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+.albumImageList{
+    aspect-ratio: 1/1;
+    border-radius: 5px;
+    height: 50px;
+    margin-right: 10px;
+}
+.durationImageList{
+    height: 25px;
+    width: 25px;
+}
