@@ -304,9 +304,18 @@ function handleTracksResponse() {
 }
 
 function addTrack(item, index) {
-  let node = document.createElement("option");
+  let node = document.createElement("li");
   node.value = index;
-  node.innerHTML = item.track.name + " (" + item.track.artists[0].name + ")";
+  node.innerHTML =
+    "<div class='musicListItem'> <img class='albumImageList' src='" +
+    item.track.album.images[0].url +
+    "'/><div class='trackListInfo'><p>" +
+    item.track.name +
+    " </p><p>(" +
+    item.track.artists[0].name +
+    ")</p></div><div class='trackListDuration'> <img class='durationImageList' src='./assets/time.png' /><p>" +
+    msToTime(item.track.duration_ms) +
+    "</div></div>";
   document.getElementById("tracks").appendChild(node);
 }
 
@@ -334,32 +343,33 @@ setInterval(function () {
   }
 }, 10000);
 
+function msToTime(duration) {
+  let seconds = Math.floor(duration / 1000);
+  let minutes = Math.floor(seconds / 60);
+
+  seconds = seconds % 60;
+  minutes = minutes % 60;
+
+  return (
+    minutes.toString().padStart(2, "0") +
+    ":" +
+    seconds.toString().padStart(2, "0")
+  );
+}
+
 function handleTimeStampResponse() {
   if (this.status == 200) {
     var data = JSON.parse(this.responseText);
     if (data.item != null) {
-      let trackMsTot = data.item.duration_ms;
-      let trackMs = trackMsTot % 1000;
-      let trackStot = (trackMsTot - trackMs) / 1000;
-      let trackS = trackStot % 60;
-      let trackMtot = (trackStot - trackS) / 60;
-      let trackM = trackMtot % 60;
+      trackDuration = msToTime(data.item.duration_ms);
+      trackProgress = msToTime(data.progress_ms);
 
-      let progressMsTot = data.progress_ms;
-      let progressMs = progressMsTot % 1000;
-      let progressStot = (progressMsTot - progressMs) / 1000;
-      let progressS = progressStot % 60;
-      let progressMtot = (progressStot - progressS) / 60;
-      let progressM = progressMtot % 60;
-
-      document.getElementById("trackDuration").innerHTML =
-        trackM + ":" + trackS;
-      document.getElementById("trackProgress").innerHTML =
-        progressM + ":" + progressS;
+      document.getElementById("trackDuration").innerHTML = trackDuration;
+      document.getElementById("trackProgress").innerHTML = trackProgress;
     }
   } else {
-    document.getElementById("trackDuration").innerHTML = "0:0";
-    document.getElementById("trackProgress").innerHTML = "0:0";
+    document.getElementById("trackDuration").innerHTML = "00:00";
+    document.getElementById("trackProgress").innerHTML = "00:00";
     document.getElementById("albumImage").style.display = "none";
     document.getElementById("trackTitle").innerHTML = "No track playing";
   }

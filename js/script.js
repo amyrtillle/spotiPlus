@@ -30,7 +30,7 @@ function togglePlayer() {
     albumImage.style.margin = "20px auto";
     body.style.filter = "blur(5px)";
   } else {
-    player.style.height = "150px";
+    player.style.height = "170px";
     extender.style.transform = "rotate(-90deg)";
     albumImage.style.height = "0";
     albumImage.style.margin = "0 auto";

@@ -227,6 +227,37 @@ font-size: large;
     flex-direction: column;
 }
 
+.musicListItem{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.trackListInfo{
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 0;
+}
+
+.trackListDuration{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.albumImageList{
+  aspect-ratio: 1/1;
+  height: 50px;
+}
+.durationImageList{
+  width: 25px;
+  height: 25px;
+}
+
 footer{
   transition: all 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
 
@@ -247,7 +278,7 @@ footer{
   display: flex;
   flex-direction: column;
   width: 80%;
-  height: 150px;
+  height: 180px;
 }
 
 #extendPlayer{
@@ -288,6 +319,7 @@ transition: all 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
+  
 }
 
 #trackTitle{
@@ -295,6 +327,7 @@ transition: all 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
   text-align: left;
   white-space: normal;
   justify-content: flex-start;
+  
 }
 
 #trackArtist{
