@@ -18,6 +18,7 @@ const NEXT = "https://api.spotify.com/v1/me/player/next";
 const PREVIOUS = "https://api.spotify.com/v1/me/player/previous";
 const PLAYER = "https://api.spotify.com/v1/me/player";
 const TRACKS = "https://api.spotify.com/v1/playlists/{{PlaylistId}}/tracks";
+const THISTRACK = "https://api.spotify.com/v1/tracks/{id}";
 const CURRENTLYPLAYING =
   "https://api.spotify.com/v1/me/player/currently-playing";
 
@@ -125,8 +126,6 @@ function handleAuthorizationResponse() {
       localStorage.setItem("refresh_token", refresh_token);
     }
     onPageLoad();
-  } else {
-    alert(this.responseText);
   }
 }
 
@@ -141,8 +140,6 @@ function handleDevicesResponse() {
     data.devices.forEach((item) => addDevice(item));
   } else if (this.status == 401) {
     refreshAccessToken();
-  } else {
-    alert(this.responseText);
   }
 }
 
@@ -174,15 +171,20 @@ function handlePlaylistsResponse() {
     document.getElementById("playlists").value = currentPlaylist;
   } else if (this.status == 401) {
     refreshAccessToken();
-  } else {
-    alert(this.responseText);
   }
 }
 
 function addPlaylist(item) {
   let node = document.createElement("option");
   node.value = item.id;
-  node.innerHTML = item.name + " (" + item.tracks.total + ")";
+  node.addEventListener("click", function fetchTracks() {
+    let playlist_id = document.getElementById("playlists").value;
+    if (playlist_id.length > 0) {
+      url = TRACKS.replace("{{PlaylistId}}", playlist_id);
+      callApi("GET", url, null, handleTracksResponse);
+    }
+  });
+    node.innerHTML = item.name + " (" + item.tracks.total + " titles)";
   document.getElementById("playlists").appendChild(node);
 }
 
@@ -285,13 +287,7 @@ function deviceId() {
   return document.getElementById("devices").value;
 }
 
-function fetchTracks() {
-  let playlist_id = document.getElementById("playlists").value;
-  if (playlist_id.length > 0) {
-    url = TRACKS.replace("{{PlaylistId}}", playlist_id);
-    callApi("GET", url, null, handleTracksResponse);
-  }
-}
+
 
 function handleTracksResponse() {
   if (this.status == 200) {
@@ -307,7 +303,7 @@ function addTrack(item, index) {
   let node = document.createElement("li");
   node.value = index;
   node.innerHTML =
-    "<div class='musicListItem'> <img class='albumImageList' src='" +
+    "<div class='musicListItem' onclick=playThis()> <img class='albumImageList' src='" +
     item.track.album.images[0].url +
     "'/><div class='trackListInfo'><p>" +
     item.track.name +
@@ -321,6 +317,9 @@ function addTrack(item, index) {
 
 function currentlyPlaying() {
   callApi("GET", PLAYER + "?market=FR", null, handleCurrentlyPlayingResponse);
+}
+
+function playThis(){
 }
 
 function timeStamp() {
@@ -368,10 +367,9 @@ function handleTimeStampResponse() {
       document.getElementById("trackProgress").innerHTML = trackProgress;
     }
   } else {
+    document.getElementById("albumImage").style.display = "none";
     document.getElementById("trackDuration").innerHTML = "00:00";
     document.getElementById("trackProgress").innerHTML = "00:00";
-    document.getElementById("albumImage").style.display = "none";
-    document.getElementById("trackTitle").innerHTML = "No track playing";
   }
 }
 
@@ -405,21 +403,6 @@ function handleCurrentlyPlayingResponse() {
   } else {
     document.getElementById("trackDuration").innerHTML = "0:0";
     document.getElementById("trackProgress").innerHTML = "0:0";
-    document.getElementById("albumImage").style.display = "none";
     document.getElementById("trackTitle").innerHTML = "No track playing";
   }
-}
-
-function onRadioButton(deviceId, playlistId) {
-  let body = {};
-  body.context_uri = "spotify:playlist:" + playlistId;
-  body.offset = {};
-  body.offset.position = 0;
-  body.offset.position_ms = 0;
-  callApi(
-    "PUT",
-    PLAY + "?device_id=" + deviceId,
-    JSON.stringify(body),
-    handleApiResponse
-  );
 }

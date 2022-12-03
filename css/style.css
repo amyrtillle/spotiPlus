@@ -28,8 +28,6 @@ body{
     justify-content: center;
     display: flex;
     flex-direction: column;
-    min-width: 100%;
-    min-height: 100%;
 }
 
 header{
@@ -178,6 +176,7 @@ top: -600px;
 }
 
 main {
+    margin: 100px 0;
     align-items: center;
     display: flex;
     justify-content: center;
@@ -222,15 +221,28 @@ font-size: large;
 
 }
 
+#selectionSection{
+    text-align: center;
+}
+
 #deviceSection{
+    margin: 0px 10px;
     display: none;
     flex-direction: column;
 }
 
 .musicListItem{
-  display: flex;
+    margin: 10px 10px;
+  padding: 5px;
+    border-radius: 10px;
+    display: flex;
   flex-direction: row;
   justify-content: space-between;
+  background-color: #9787B8;
+}
+
+#playlistSelection{
+    margin: 10px 0;
 }
 
 .trackListInfo{
@@ -239,6 +251,10 @@ font-size: large;
   flex-direction: column;
   justify-content: center;
   margin-left: 0;
+}
+
+.trackListInfo > p:nth-child(2){
+    margin-left: 10px;
 }
 
 .trackListDuration{
@@ -252,6 +268,8 @@ font-size: large;
 .albumImageList{
   aspect-ratio: 1/1;
   height: 50px;
+  border-radius: 5px;
+  margin-right: 10px;
 }
 .durationImageList{
   width: 25px;
@@ -260,6 +278,7 @@ font-size: large;
 
 footer{
   transition: all 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+  box-shadow: rgba(0, 0, 0, 0.19) 0px -5px 10px, rgba(0, 0, 0, 0.23) 0px -6px 6px;
 
   position: fixed;
   display: flex;
@@ -269,7 +288,6 @@ footer{
   width: 100%;
   background-color: #9787B8;
   border-radius:15px 15px 0 0;
-  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
   display: flex;
 }
 
@@ -319,6 +337,7 @@ transition: all 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
+  
   
 }
 

@@ -14,7 +14,7 @@
     <script src="./js/spotify-player.js"></script>
   </head>
 
-  <body onload="onPageLoad()">
+  <body onload="onPageLoad(), refreshPlaylists()">
     <header>
       <nav role="navigation">
         <a><img class="logo" src="./assets/spotify_logo.png" /></a>
@@ -55,43 +55,28 @@
       </div>
 
       <div id="deviceSection">
-        <div>
-          <label for="devices">Devices</label>
+        <div id="selectionSection">
+        <div id="deviceSelection">
+          <label for="devices">Devices</label><br/>
           <select id="devices"></select>
           <input
             type="button"
             onclick="refreshDevices()"
             value="Refresh Devices"
           />
-          <input type="button" onclick="transfer()" value="Transfer" />
-          <input
-            type="button"
-            id="togglePlay"
-            value="Toggle play to this browser"
-          />
+          <input type="button" onclick="transfer()" value="Transfer music source" />
         </div>
 
-        <div>
+        <div id="playlistSelection">
           <label for="playlists">Playlists</label>
-          <select id="playlists"></select>
-          <input
-            type="button"
-            onclick="refreshPlaylists()"
-            value="Refresh Playlists"
-          />
+          <select id="playlists">
+            <option selected>Select a playlist</option>
+          </select>
         </div>
+      </div>
 
         <div>
-          <input type="button" onclick="fetchTracks()" value="Fetch Tracks" />
           <ul id="tracks"></ul>
-        </div>
-        <div>
-          <h1>Currently Playing</h1>
-          <input
-            type="button"
-            onclick="currentlyPlaying()"
-            value="Refresh Currently Playing"
-          />
         </div>
       </div>
     </main>
