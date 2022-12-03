@@ -238,11 +238,6 @@ window.onSpotifyWebPlaybackSDKReady = () => {
   player.addListener("account_error", ({ message }) => {
     console.error(message);
   });
-
-  document.getElementById("togglePlay").onclick = function () {
-    player.togglePlay();
-  };
-
   player.connect();
 };
 

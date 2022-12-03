@@ -225,6 +225,25 @@ font-size: large;
     text-align: center;
 }
 
+.selectionButton, .list {
+  background-color: #9787B8;
+  border-radius: 8px;
+  border-style: none;
+  box-sizing: border-box;
+  cursor: pointer;
+  padding: 5px 10px;
+  transition: color 100ms;
+  margin: 5px 0;
+}
+
+.selectionButton:hover,
+.selectionButton:focus, 
+.list:hover,
+.list:focus
+ {
+  background-color: #8374A1;
+}
+
 #deviceSection{
     margin: 0px 10px;
     display: none;
@@ -243,6 +262,10 @@ font-size: large;
 
 #playlistSelection{
     margin: 10px 0;
+}
+
+#playlists{
+    scrollbar-width: thin;
 }
 
 .trackListInfo{

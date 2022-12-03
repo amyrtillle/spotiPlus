@@ -58,19 +58,20 @@
         <div id="selectionSection">
         <div id="deviceSelection">
           <label for="devices">Devices</label><br/>
-          <select id="devices"></select>
+          <select id="devices" class="list"></select>
           <input
             type="button"
+            class="selectionButton"
             onclick="refreshDevices()"
             value="Refresh Devices"
           />
-          <input type="button" onclick="transfer()" value="Transfer music source" />
+          <input type="button"
+          class="selectionButton" onclick="transfer()" value="Transfer music source" />
         </div>
 
         <div id="playlistSelection">
           <label for="playlists">Playlists</label>
-          <select id="playlists">
-            <option selected>Select a playlist</option>
+          <select id="playlists" class="list">
           </select>
         </div>
       </div>
