@@ -1,13 +1,3 @@
-var redirect_uri = "http://127.0.0.1:5500/index.html";
-
-var client_id = "";
-var client_secret = "";
-
-var access_token = null;
-var refresh_token = null;
-var currentPlaylist = "";
-var radioButtons = [];
-
 const AUTHORIZE = "https://accounts.spotify.com/authorize";
 const TOKEN = "https://accounts.spotify.com/api/token";
 const PLAYLISTS = "https://api.spotify.com/v1/me/playlists";
@@ -19,17 +9,26 @@ const PREVIOUS = "https://api.spotify.com/v1/me/player/previous";
 const PLAYER = "https://api.spotify.com/v1/me/player";
 const TRACKS = "https://api.spotify.com/v1/playlists/{{PlaylistId}}/tracks";
 const THISTRACK = "https://api.spotify.com/v1/tracks/{id}";
-const CURRENTLYPLAYING =
-  "https://api.spotify.com/v1/me/player/currently-playing";
+const CURRENTLYPLAYING = "https://api.spotify.com/v1/me/player/currently-playing";
+
+var redirectUri = "http://127.0.0.1:5500/index.html";
+
+var clientId = "";
+var clientSecret = "";
+
+var accessToken = null;
+var refreshToken = null;
+var currentPlaylist = "";
+var radioButtons = [];
 
 function onPageLoad() {
-  client_id = localStorage.getItem("client_id");
-  client_secret = localStorage.getItem("client_secret");
+  clientId = localStorage.getItem("client_id");
+  clientSecret = localStorage.getItem("client_secret");
   if (window.location.search.length > 0) {
     handleRedirect();
   } else {
-    access_token = localStorage.getItem("access_token");
-    if (access_token == null) {
+    accessToken = localStorage.getItem("access_token");
+    if (accessToken == null) {
       // we don't have an access token so present token section
       document.getElementById("tokenSection").style.display = "flex";
       document.querySelector("footer").style.display = "none";
@@ -39,6 +38,7 @@ function onPageLoad() {
       document.getElementById("deviceSection").style.display = "flex";
       document.querySelector("footer").style.display = "flex";
       document.getElementById("menuToggle").style.display = "flex";
+
       refreshDevices();
       refreshPlaylists();
       currentlyPlaying();
@@ -49,7 +49,7 @@ function onPageLoad() {
 function handleRedirect() {
   let code = getCode();
   fetchAccessToken(code);
-  window.history.pushState("", "", redirect_uri); // remove param from url
+  window.history.pushState("", "", redirectUri); // remove param from url
 }
 
 function getCode() {
@@ -63,15 +63,15 @@ function getCode() {
 }
 
 function requestAuthorization() {
-  client_id = "bea1129d18834c44958a6741231f1a80";
-  client_secret = "9d567158ce3d4484bdf79358c4a6fd62";
-  localStorage.setItem("client_id", client_id);
-  localStorage.setItem("client_secret", client_secret); // In a real app you should not expose your client_secret to the user
+  clientId = "bea1129d18834c44958a6741231f1a80";
+  clientSecret = "9d567158ce3d4484bdf79358c4a6fd62";
+  localStorage.setItem("client_id", clientId);
+  localStorage.setItem("client_secret", clientSecret); // In a real app you should not expose your client_secret to the user
 
   let url = AUTHORIZE;
-  url += "?client_id=" + client_id;
+  url += "?client_id=" + clientId;
   url += "&response_type=code";
-  url += "&redirect_uri=" + encodeURI(redirect_uri);
+  url += "&redirect_uri=" + encodeURI(redirectUri);
   url += "&show_dialog=true";
   url +=
     "&scope=user-read-private user-read-email user-modify-playback-state user-read-playback-position user-library-read streaming user-read-playback-state user-read-recently-played playlist-read-private";
@@ -81,23 +81,23 @@ function requestAuthorization() {
 function fetchAccessToken(code) {
   let body = "grant_type=authorization_code";
   body += "&code=" + code;
-  body += "&redirect_uri=" + encodeURI(redirect_uri);
-  body += "&client_id=" + client_id;
-  body += "&client_secret=" + client_secret;
+  body += "&redirect_uri=" + encodeURI(redirectUri);
+  body += "&client_id=" + clientId;
+  body += "&client_secret=" + clientSecret;
   callAuthorizationApi(body);
 }
 
 function refreshAccessToken() {
-  refresh_token = localStorage.getItem("refresh_token");
+  refreshToken = localStorage.getItem("refresh_token");
   let body = "grant_type=refresh_token";
-  body += "&refresh_token=" + refresh_token;
-  body += "&client_id=" + client_id;
+  body += "&refresh_token=" + refreshToken;
+  body += "&client_id=" + clientId;
   callAuthorizationApi(body);
 }
 
 function logOut() {
-  access_token = localStorage.removeItem("access_token");
-  refresh_token = localStorage.removeItem("refresh_token");
+  accessToken = localStorage.removeItem("access_token");
+  refreshToken = localStorage.removeItem("refresh_token");
   window.location.reload();
 }
 
@@ -107,7 +107,7 @@ function callAuthorizationApi(body) {
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xhr.setRequestHeader(
     "Authorization",
-    "Basic " + btoa(client_id + ":" + client_secret)
+    "Basic " + btoa(clientId + ":" + clientSecret)
   );
   xhr.send(body);
   xhr.onload = handleAuthorizationResponse;
@@ -118,12 +118,12 @@ function handleAuthorizationResponse() {
     var data = JSON.parse(this.responseText);
     var data = JSON.parse(this.responseText);
     if (data.access_token != undefined) {
-      access_token = data.access_token;
-      localStorage.setItem("access_token", access_token);
+      accessToken = data.access_token;
+      localStorage.setItem("access_token", accessToken);
     }
     if (data.refresh_token != undefined) {
-      refresh_token = data.refresh_token;
-      localStorage.setItem("refresh_token", refresh_token);
+      refreshToken = data.refresh_token;
+      localStorage.setItem("refresh_token", refreshToken);
     }
     onPageLoad();
   }
@@ -136,6 +136,7 @@ function refreshDevices() {
 function handleDevicesResponse() {
   if (this.status == 200) {
     var data = JSON.parse(this.responseText);
+
     removeAllItems("devices");
     data.devices.forEach((item) => addDevice(item));
   } else if (this.status == 401) {
@@ -145,16 +146,19 @@ function handleDevicesResponse() {
 
 function addDevice(item) {
   let node = document.createElement("option");
+
   node.value = item.id;
   node.innerHTML = item.name;
+
   document.getElementById("devices").appendChild(node);
 }
 
 function callApi(method, url, body, callback) {
   let xhr = new XMLHttpRequest();
+
   xhr.open(method, url, true);
   xhr.setRequestHeader("Content-Type", "application/json");
-  xhr.setRequestHeader("Authorization", "Bearer " + access_token);
+  xhr.setRequestHeader("Authorization", "Bearer " + accessToken);
   xhr.send(body);
   xhr.onload = callback;
 }
@@ -166,8 +170,10 @@ function refreshPlaylists() {
 function handlePlaylistsResponse() {
   if (this.status == 200) {
     var data = JSON.parse(this.responseText);
+
     removeAllItems("playlists");
     data.items.forEach((item) => addPlaylist(item));
+
     document.getElementById("playlists").value = currentPlaylist;
   } else if (this.status == 401) {
     refreshAccessToken();
@@ -177,14 +183,17 @@ function handlePlaylistsResponse() {
 function addPlaylist(item) {
   let node = document.createElement("option");
   node.value = item.id;
+
   node.addEventListener("click", function fetchTracks() {
-    let playlist_id = document.getElementById("playlists").value;
-    if (playlist_id.length > 0) {
-      url = TRACKS.replace("{{PlaylistId}}", playlist_id);
+    let playlistId = document.getElementById("playlists").value;
+
+    if (playlistId.length > 0) {
+      url = TRACKS.replace("{{PlaylistId}}", playlistId);
       callApi("GET", url, null, handleTracksResponse);
     }
   });
-    node.innerHTML = item.name + " (" + item.tracks.total + " titles)";
+
+  node.innerHTML = item.name + " (" + item.tracks.total + " titles)";
   document.getElementById("playlists").appendChild(node);
 }
 
@@ -196,9 +205,10 @@ function removeAllItems(elementId) {
 }
 
 function play() {
-  let playlist_id = document.getElementById("playlists").value;
-  let trackindex = document.getElementById("tracks").value;
+  let playlistId = document.getElementById("playlists").value;
+  let trackIndex = document.getElementById("tracks").value;
   let body = {};
+
   refreshDevices();
   callApi(
     "PUT",
@@ -212,7 +222,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
   const player = new Spotify.Player({
     name: "SpotiPlus Player",
     getOAuthToken: (cb) => {
-      cb(access_token);
+      cb(accessToken);
     },
     volume: 0.5,
   });
@@ -314,7 +324,7 @@ function currentlyPlaying() {
   callApi("GET", PLAYER + "?market=FR", null, handleCurrentlyPlayingResponse);
 }
 
-function playThis(){
+function playThis() {
 }
 
 function timeStamp() {
@@ -322,18 +332,18 @@ function timeStamp() {
 }
 
 setInterval(function () {
-  if (access_token != null && access_token.length > 0) {
+  if (accessToken != null && accessToken.length > 0) {
     timeStamp();
   } else {
-    setTimeout(() => {}, "15000");
+    setTimeout(() => { }, "15000");
   }
 }, 1000);
 
 setInterval(function () {
-  if (access_token != null && access_token.length > 0) {
+  if (accessToken != null && accessToken.length > 0) {
     currentlyPlaying();
   } else {
-    setTimeout(() => {}, "15000");
+    setTimeout(() => { }, "15000");
   }
 }, 10000);
 
