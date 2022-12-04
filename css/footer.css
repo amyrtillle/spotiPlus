@@ -35,7 +35,7 @@ footer{
     display: block;
     height: 0;
     transition: all 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
-    width: 150px;
+
 }
   
 #trackTime{
@@ -101,4 +101,21 @@ footer{
     align-items: center;
     display: flex;
     flex-direction: column;
+}
+
+@media screen and (min-width: 768px){
+    footer{
+        height: 220px;
+    }
+
+    #footerContainer{
+    margin: 10px 0;
+    }
+
+    #controlContainer > img{
+        height: 35px;
+    }
+
+    #musicInfo{
+    margin-top: 150px;}
 }

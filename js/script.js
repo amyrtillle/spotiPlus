@@ -24,16 +24,30 @@ function togglePlayer() {
   let body = document.querySelector("main");
 
   if (document.getElementById("footerCheckBox").checked == true) {
-    extender.style.transform = "rotate(90deg)";
+    albumImage.style.display= "block";
     player.style.height = "70%";
-    albumImage.style.height = "150px";
-    albumImage.style.margin = "20px auto";
+    extender.style.transform = "rotate(90deg)";
     body.style.filter = "blur(5px)";
-  } else {
-    player.style.height = "170px";
+    albumImage.style.margin = "20px auto";
+
+    if(window.innerWidth < 768) {
+    albumImage.style.height = "150px";
+    }
+    else {
+      albumImage.style.height = "300px";
+    }
+  } 
+  else {
     extender.style.transform = "rotate(-90deg)";
-    albumImage.style.height = "0";
-    albumImage.style.margin = "0 auto";
-    body.style.filter = "blur(0px)";
+      albumImage.style.height = "0";
+      albumImage.style.margin = "0 auto";
+      body.style.filter = "blur(0px)";
+
+    if(window.innerWidth < 768) {
+      player.style.height = "170px";
+    }
+    else{
+      player.style.height = "220px";
+    }
   }
 }

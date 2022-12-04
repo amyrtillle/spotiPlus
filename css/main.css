@@ -117,5 +117,39 @@ main{
 }
 .durationImageList{
     height: 25px;
-    width: 25px;
+    aspect-ratio: 1/1;
+}
+
+@media screen and (min-width: 768px){
+    main{
+        margin-top: 120px;
+    }
+
+    .selectionButton{
+        
+        height: 40px;
+        font-size: 25px;
+    }
+
+    #playlists{
+        height: 40px;
+        font-size: 25px;
+    }
+
+    #devices{
+        height: 40px;
+        font-size: 25px;
+    }
+
+    .musicListItem{
+        height: 100%;
+    }
+
+    .albumImageList{
+        height: 80px;
+    }
+    .durationImageList{
+        height: 40px;
+        margin-bottom: 10px;
+    }
 }
