@@ -125,41 +125,69 @@ main{
         margin-top: 120px;
     }
 
-    .selectionButton{
-        height: 40px;
-        font-size: 25px;
-    }
-
-    #playlists{
-        height: 40px;
-        font-size: 25px;
+    .albumImageList{
+        height: 80px;
     }
 
     #devices{
-        height: 40px;
         font-size: 25px;
+        height: 40px;
+    }
+
+    .durationImageList{
+        height: 40px;
+        margin-bottom: 10px;
     }
 
     .musicListItem{
         height: 100%;
     }
 
-    .albumImageList{
-        height: 80px;
-    }
-    .durationImageList{
+    #playlists{
+        font-size: 25px;
         height: 40px;
-        margin-bottom: 10px;
     }
+
+    .selectionButton{
+        font-size: 25px;
+        height: 40px;
+    }  
 }
 
 @media screen and (min-width: 768px){
     #tokenSection{
-        width: auto;
         padding: 20px;
+        width: auto;
     }
 }
 
 @media screen and (min-width : 1224px) {
-    /* Styles */
+    nav{
+        z-index: 0;
+    }
+
+    .albumImageList{
+        height: 130px;
+    }
+
+    .durationImageList{
+        height: 70px;
+        margin-bottom: 10px;
+    }
+
+    .musicListItem{
+        margin: 20px;
+        padding: 10px;
+        font-size: 35px;
+    }
+
+    #playlistSelection{
+        position: absolute;
+        top: 15px;
+        right: 5%;
+    }
+    
+    #playlistSelection select{
+        background-color: #8374A1;
+    }
 }

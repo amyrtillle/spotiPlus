@@ -66,7 +66,7 @@ function requestAuthorization() {
   clientId = "bea1129d18834c44958a6741231f1a80";
   clientSecret = "9d567158ce3d4484bdf79358c4a6fd62";
   localStorage.setItem("client_id", clientId);
-  localStorage.setItem("client_secret", clientSecret); // In a real app you should not expose your client_secret to the user
+  localStorage.setItem("client_secret", clientSecret); // In a real app I will not expose my client_secret to the user
 
   let url = AUTHORIZE;
   url += "?client_id=" + clientId;
