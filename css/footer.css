@@ -117,3 +117,10 @@ footer{
         height: 35px;
     }
 }
+
+@media screen and (min-width : 1224px) {
+    footer{
+        width: 20%;
+        justify-content: flex-start;
+    }
+}
