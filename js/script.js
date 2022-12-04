@@ -22,6 +22,7 @@ function togglePlayer() {
   let player = document.querySelector("footer");
   let albumImage = document.getElementById("albumImage");
   let body = document.querySelector("main");
+  let musicInfo = document.getElementById("musicInfo");
 
   if (document.getElementById("footerCheckBox").checked == true) {
     albumImage.style.display= "block";
@@ -32,8 +33,9 @@ function togglePlayer() {
 
     if(window.innerWidth < 768) {
     albumImage.style.height = "150px";
-    }
-    else {
+  }
+  else {
+      musicInfo.style.marginTop = "160px";
       albumImage.style.height = "300px";
     }
   } 
@@ -42,12 +44,13 @@ function togglePlayer() {
       albumImage.style.height = "0";
       albumImage.style.margin = "0 auto";
       body.style.filter = "blur(0px)";
+      musicInfo.style.marginTop = "0";
 
     if(window.innerWidth < 768) {
       player.style.height = "170px";
     }
     else{
-      player.style.height = "220px";
+      player.style.height = "300px";
     }
   }
 }

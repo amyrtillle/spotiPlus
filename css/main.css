@@ -126,7 +126,6 @@ main{
     }
 
     .selectionButton{
-        
         height: 40px;
         font-size: 25px;
     }
@@ -151,5 +150,12 @@ main{
     .durationImageList{
         height: 40px;
         margin-bottom: 10px;
+    }
+}
+
+@media screen and (min-width: 768px){
+    #tokenSection{
+        width: auto;
+        padding: 20px;
     }
 }
