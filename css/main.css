@@ -117,5 +117,77 @@ main{
 }
 .durationImageList{
     height: 25px;
-    width: 25px;
+    aspect-ratio: 1/1;
+}
+
+@media screen and (min-width: 768px){
+    main{
+        margin-top: 120px;
+    }
+
+    .albumImageList{
+        height: 80px;
+    }
+
+    #devices{
+        font-size: 25px;
+        height: 40px;
+    }
+
+    .durationImageList{
+        height: 40px;
+        margin-bottom: 10px;
+    }
+
+    .musicListItem{
+        height: 100%;
+    }
+
+    #playlists{
+        font-size: 25px;
+        height: 40px;
+    }
+
+    .selectionButton{
+        font-size: 25px;
+        height: 40px;
+    }  
+}
+
+@media screen and (min-width: 768px){
+    #tokenSection{
+        padding: 20px;
+        width: auto;
+    }
+}
+
+@media screen and (min-width : 1224px) {
+    nav{
+        z-index: 0;
+    }
+
+    .albumImageList{
+        height: 130px;
+    }
+
+    .durationImageList{
+        height: 70px;
+        margin-bottom: 10px;
+    }
+
+    .musicListItem{
+        margin: 20px;
+        padding: 10px;
+        font-size: 35px;
+    }
+
+    #playlistSelection{
+        position: absolute;
+        top: 15px;
+        right: 5%;
+    }
+    
+    #playlistSelection select{
+        background-color: #8374A1;
+    }
 }

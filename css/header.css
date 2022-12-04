@@ -124,4 +124,65 @@ nav > a{
 #menu > li:first-child{
     margin-bottom: 70px;
     font-weight: 700;
+} 
+
+@media screen and (min-width: 768px){
+    nav{
+        height: 100px;
+    }
+
+    nav > a{
+        height: 80%;
+        margin-left: 30px;
+    }
+
+    .logo{
+        height: 90%;
+    }
+
+    #menuToggle{
+        display: none !important;
+    }
+
+    #menu{
+        box-shadow: none;
+        flex-direction: row;
+        height: 100%;
+        position: relative;
+        top: 0;
+        padding: 0 50px;
+    }
+    
+
+    #menu li{
+        padding: 0 20px;
+    }
+
+    #menu > li:first-child{
+        display: none;
+    } 
+}
+
+@media screen and (min-width : 1224px) {
+    #menu{
+        align-items: flex-start;
+        border-radius: 35px;
+        flex-direction: column;
+        height: 800px;
+        justify-content: flex-start;
+        left: 0;
+        margin-top: 6%;
+        position: absolute;
+        width: 300px;
+    }
+
+    #menu > li:first-child{
+        display: block;
+        margin-top: 30%;
+    }
+
+    #menu li{
+        font-size: 30px;
+        margin: 20px 0;
+    }
 }

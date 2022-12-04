@@ -6,6 +6,7 @@ footer{
     box-shadow: rgba(0, 0, 0, 0.19) 0px -5px 10px, rgba(0, 0, 0, 0.23) 0px -6px 6px;
     display: flex;
     flex-direction: column;
+    padding-bottom: 10px;
     position: fixed;
     transition: all 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
     width: 100%;
@@ -35,7 +36,7 @@ footer{
     display: block;
     height: 0;
     transition: all 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
-    width: 150px;
+
 }
   
 #trackTime{
@@ -51,6 +52,7 @@ footer{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    transition: all 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
     width: 100%;   
 }
   
@@ -101,4 +103,44 @@ footer{
     align-items: center;
     display: flex;
     flex-direction: column;
+}
+
+@media screen and (min-width: 768px){
+    footer{
+        height: 300px;
+    }
+
+    #controlContainer > img{
+        height: 35px;
+    }
+
+    #footerContainer{
+        margin: 10px 0;
+    }
+}
+
+@media screen and (min-width : 1224px) {
+    footer{
+        box-shadow: none;
+        height: 450px;
+        left: 0;
+        padding-top: 15px;
+        position: absolute;
+        width: 400px;
+        z-index: 1;
+    }
+
+    #albumImage{
+        height: 200px;
+        margin: 20px auto;
+        width: 200px;
+    }
+
+    #extendPlayer{
+        display: none;
+    }
+
+    #footerCheckBox{
+        display: none;
+    }
 }
